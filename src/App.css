@@ -1,0 +1,6 @@
+@import '~antd/dist/antd.css';
+
+.marker-meta{
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
