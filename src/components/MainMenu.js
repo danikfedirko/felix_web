@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Menu} from 'antd';
+import Logo from '../img/logo.png'
 
 const MainMenu = (props) => {
   return (
     <div id="nav">
-      <div className="logo" style={{float:'left',marginRight:'2em'}}><h1>Felix</h1></div>
+      <div className="logo" style={{float:'left',marginRight:'2em'}}><img src={Logo} /><h1>Felix</h1></div>
       <Menu
         mode="horizontal"
         defaultSelectedKeys={['1']}

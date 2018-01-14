@@ -1,6 +1,16 @@
-@import '~antd/dist/antd.css';
+@import url(~antd/dist/antd.css);
+.logo * {
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0; }
 
-.marker-meta{
+.logo img {
+  height: 30px;
+  margin-right: 1em; }
+
+.logo h1 {
+  line-height: 30px; }
+
+.marker-meta {
   margin-top: 5px;
-  margin-bottom: 15px;
-}
+  margin-bottom: 15px; }
