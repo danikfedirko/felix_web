@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import less from 'less';
-
-less.modifyVars({
-  '@primary-color': '#FFD700'
-});
+import './css/antd.less'
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
