@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import s from './App.css';
 import MainLayout from './containers/Layout'
 import { BrowserRouter, Route} from 'react-router-dom'
 import Home from './containers/Home'
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import normalizeCss from 'normalize.css';
+import './index.css';
+import PropTypes from 'prop-types'
 
 
 class App extends Component {
@@ -17,4 +21,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withStyles(s)(App);

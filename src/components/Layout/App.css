@@ -1,14 +1,7 @@
-.logo * {
-  display: inline-block;
-  vertical-align: middle;
-  margin-bottom: 0; }
-
-.logo img {
-  height: 30px;
-  margin-right: 1em; }
-
-.logo h1 {
-  line-height: 30px; }
+.root {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
 .marker-meta {
   margin-top: 5px;
