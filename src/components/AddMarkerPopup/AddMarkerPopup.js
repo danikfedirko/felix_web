@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, Modal, Form, Input, Icon, Upload} from 'antd'
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './AddMarkerPopup.sass'
 const { TextArea } = Input;
 
 class AddMarkerPopup extends React.Component {
@@ -62,7 +64,7 @@ class AddMarkerPopup extends React.Component {
     return(
       <div>
       <Button style={{position:'absolute', left:'20px', bottom:'50px'}} shape="circle" icon="plus" size='large' onClick={this.toggleModal}/>
-      <Modal className="add-marker-modal" visible={this.state.showModal} onOk={this.handleOk} onCancel={this.toggleModal}>
+      <Modal className={s.addMarkerModal} visible={this.state.showModal} onOk={this.handleOk} onCancel={this.toggleModal}>
         <Form>
         <Input
           placeholder="Enter your username"
@@ -102,4 +104,4 @@ class AddMarkerPopup extends React.Component {
   }
 }
 
-export default AddMarkerPopup;
+export default withStyles(s)(AddMarkerPopup);

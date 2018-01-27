@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout} from 'antd';
-import appCss from './App.css';
-import antd from 'antd/dist/antd.css';
+import antd from 'antd/dist/antd.less';
+import s from './Layout.less';
 import MainMenu from '../MainMenu/MainMenu';
 import normalizeCss from 'normalize.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -22,4 +22,4 @@ class MainLayout extends React.Component {
   }
 }
 
-export default withStyles(appCss, antd)(MainLayout);
+export default withStyles(antd, s, normalizeCss)(MainLayout);

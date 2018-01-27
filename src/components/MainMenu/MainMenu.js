@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Menu} from 'antd';
 import Logo from '../../img/logo.png'
-import s from './MainMenu.css'
+import s from './MainMenu.sass'
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 class MainMenu extends React.Component {

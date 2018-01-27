@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Map from '../components/Map'
-import InfoBox from '../components/InfoBox'
-import AddMarkerPopup from './AddMarkerPopup'
+import Map from './Map'
+import InfoBox from '../InfoBox/InfoBox'
+import AddMarkerPopup from '../AddMarkerPopup/AddMarkerPopup'
 
 class MapWrapper extends React.Component {
   state = {

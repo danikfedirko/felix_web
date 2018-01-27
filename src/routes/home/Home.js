@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import MapWrapper from '../../containers/MapWrapper'
+import MapWrapper from '../../components/Map/MapWrapper'
 
 class Home extends React.Component {
     render () {
