@@ -24,4 +24,7 @@ module.exports = {
     '@babel/preset-react',
   ],
   ignore: ['node_modules', 'build'],
+  plugins: [
+    ['babel-plugin-webpack-aliases', { config: './tools/webpack.config.js' }],
+  ],
 };

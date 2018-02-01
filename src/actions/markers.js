@@ -1,4 +1,4 @@
-import fire from '../fire';
+import fire from 'fire';
 
 export const FETCH_MARKERS = 'FETCH_MARKERS';
 export const RECEIVE_MARKERS = 'RECEIVE_MARKERS';

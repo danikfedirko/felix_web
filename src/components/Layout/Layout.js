@@ -1,25 +1,29 @@
-import React from 'react'
-import { Layout} from 'antd';
+import React from 'react';
+import { Layout } from 'antd';
+import PropTypes from 'prop-types';
 import antd from 'antd/dist/antd.less';
-import s from './Layout.less';
-import MainMenu from '../MainMenu/MainMenu';
+import MainMenu from 'components/MainMenu/MainMenu';
 import normalizeCss from 'normalize.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-const { Header, Content} = Layout;
+import s from './Layout.less';
+
+const { Header, Content } = Layout;
 
 class MainLayout extends React.Component {
-  render () {
-    return(
-    <Layout>
-      <Header style={{background:'#fff'}} className="header">
-          <MainMenu/>
-      </Header>
-      <Content>
-          {this.props.children}
-      </Content>
-  </Layout>
-);
+  render() {
+    return (
+      <Layout>
+        <Header style={{ background: '#fff' }} className="header">
+          <MainMenu />
+        </Header>
+        <Content>{this.props.children}</Content>
+      </Layout>
+    );
   }
 }
+
+MainLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default withStyles(antd, s, normalizeCss)(MainLayout);

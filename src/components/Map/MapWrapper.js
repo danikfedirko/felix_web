@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import InfoBox from 'components/InfoBox/InfoBox';
+import AddMarkerPopup from 'components/AddMarkerPopup/AddMarkerPopup';
+import { fetchMarkers } from 'actions/markers';
+import fire from 'fire';
 import Map from './Map';
-import InfoBox from '../InfoBox/InfoBox';
-import AddMarkerPopup from '../AddMarkerPopup/AddMarkerPopup';
-import { fetchMarkers } from '../../actions/markers';
-import fire from '../../fire';
 
 class MapWrapper extends React.Component {
   state = {

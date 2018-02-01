@@ -1,14 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import MapWrapper from '../../components/Map/MapWrapper'
+import React from 'react';
+import MapWrapper from 'components/Map/MapWrapper';
 
 class Home extends React.Component {
-    render () {
-      return(
+  render() {
+    return (
       <section>
-        <MapWrapper/>
+        <MapWrapper />
       </section>
-      )
+    );
   }
 }
 

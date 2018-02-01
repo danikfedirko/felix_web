@@ -57,6 +57,9 @@ const config = {
     // Allow absolute paths in imports, e.g. import Button from 'components/Button'
     // Keep in sync with .flowconfig and .eslintrc
     modules: ['node_modules', 'src'],
+    alias: {
+      components: '../src/components',
+    },
   },
 
   module: {
@@ -163,13 +166,13 @@ const config = {
               },
             },
           },
-           {
-             test: /\.less$/,
-             loader: 'less-loader',
-           },
-           {
-             test: /\.(scss|sass)$/,
-             loader: 'sass-loader',
+          {
+            test: /\.less$/,
+            loader: 'less-loader',
+          },
+          {
+            test: /\.(scss|sass)$/,
+            loader: 'sass-loader',
           },
         ],
       },

@@ -8,10 +8,10 @@
  */
 
 import React from 'react';
+import Layout from 'components/Layout';
 import Home from './Home';
-import Layout from '../../components/Layout';
 
-async function action({ fetch }) {
+async function action() {
   return {
     chunks: ['home'],
     title: 'Felix',
