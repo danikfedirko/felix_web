@@ -5,7 +5,7 @@ import antd from 'antd/dist/antd.less';
 import MainMenu from 'components/MainMenu/MainMenu';
 import normalizeCss from 'normalize.css';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Layout.less';
+import styles from './Layout.less';
 
 const { Header, Content } = Layout;
 
@@ -26,4 +26,4 @@ MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default withStyles(antd, s, normalizeCss)(MainLayout);
+export default withStyles(antd, styles, normalizeCss)(MainLayout);
