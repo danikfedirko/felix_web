@@ -41,7 +41,7 @@ class MapWrapper extends React.Component {
       showModal: false,
     });
   };
-  addMarker = (id, name, author, date, description, icon) => {
+  addMarker = (id, name, author, date, description, icon, photos) => {
     const markers = this.state.markersData;
     markers.push({
       id,
@@ -51,14 +51,7 @@ class MapWrapper extends React.Component {
       date,
       description,
       icon,
-      photos: [
-        'https://images.unsplash.com/photo-1482920387559-08269818bcfc?auto=format&fit=crop&w=1050&q=80',
-        'https://images.unsplash.com/photo-1483119624769-b1a73c256500?auto=format&fit=crop&w=1046&q=80',
-        'https://images.unsplash.com/photo-1496153615838-861aed350146?auto=format&fit=crop&w=1090&q=80',
-        'https://images.unsplash.com/photo-1496297485239-4265d2ba2105?auto=format&fit=crop&w=1220&q=80',
-        'https://images.unsplash.com/photo-1506706907212-709cf5fd7f06?auto=format&fit=crop&w=1050&q=80',
-        'https://images.unsplash.com/photo-1425342605259-25d80e320565?auto=format&fit=crop&w=1050&q=80',
-      ],
+      photos,
     });
     this.setState({
       markersData: markers,
@@ -99,6 +92,7 @@ class MapWrapper extends React.Component {
         <AddMarkerPopup
           showModal={this.state.showModal}
           addMarker={this.addMarker}
+          markers={this.state.markersData}
           initNewMarkersPositionDetection={this.initNewMarkersPositionDetection}
         />
       </div>

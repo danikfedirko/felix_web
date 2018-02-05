@@ -1,27 +1,98 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Card, Carousel, Button, Icon } from 'antd';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Card, Row, Col, Button, Icon, Modal, Divider } from 'antd';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import styles from './InfoBox.sass';
 
-const InfoBox = (props) => {
-  return (
-    <Card key={props.marker.id} title={props.marker.name} bordered={false} style={{ width: 300,position:'fixed',left:'20px', top:'120px',zIndex:10000 }}>
-       <Carousel style={{height:'170px'}}>
-       {props.marker.photos.map((url,index) => {
-         return(<img src={url} key={index} />)
-         })
-       }
-       </Carousel>
-       <div className='marker-meta'>
-         <span>{props.marker.author}</span> <span style={{float:'right'}}>{props.marker.date}</span>
-       </div>
-       <div className='marker-content'>
-         <p>{props.marker.description}</p>
-       </div>
-       <Button onClick={this.initUserChooseLocation} style={{marginRight:'10px'}}>
-           <Icon type="plus" /> add more photos
-         </Button>
-  </Card>
-  )
+class InfoBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      previewVisible: false,
+      previewImage: '',
+    };
+  }
+  handlePreview = src => {
+    this.setState({
+      previewImage: src,
+      previewVisible: true,
+    });
+  };
+  handleCancel = () => {
+    this.setState({
+      previewVisible: false,
+    });
+  };
+  render() {
+    return (
+      <Card
+        className={styles.infobox}
+        key={this.props.marker.id}
+        title={this.props.marker.name}
+        bordered
+        style={{
+          width: '40%',
+          height: '100vh',
+          position: 'fixed',
+          right: '0px',
+          top: '64px',
+          zIndex: 10,
+        }}
+      >
+        <div className={styles.markermeta}>
+          <span>{`@${this.props.marker.author}`}</span>{' '}
+          <span style={{ float: 'right' }}>{this.props.marker.date}</span>
+        </div>
+        <div className="marker-content">
+          <p>{this.props.marker.description}</p>
+        </div>
+        <Divider />
+        <Row gutter={3} className={styles.markerphotos}>
+          {this.props.marker.photos.map(url => (
+            <Col span={8}>
+              <div
+                className="gallery-img-wrapper"
+                key={url.slice(0, 20)}
+                onClick={() => this.handlePreview(url)}
+                role="presentation"
+              >
+                <img alt="img" src={url} style={{ width: '100%' }} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+        <Button
+          onClick={this.initUserChooseLocation}
+          style={{
+            marginRight: '10px',
+            position: 'absolute',
+            bottom: '80px',
+            zIndex: '110',
+          }}
+        >
+          <Icon type="plus" /> add a photo
+        </Button>
+
+        <Modal
+          visible={this.state.previewVisible}
+          cancelText=""
+          footer={null}
+          onCancel={this.handleCancel}
+        >
+          <img
+            alt="example"
+            style={{ width: '100%' }}
+            src={this.state.previewImage}
+          />
+          <span style={{ marginTop: '20px' }}>@danikfedirko</span>
+        </Modal>
+      </Card>
+    );
+  }
 }
 
-export default InfoBox
+InfoBox.propTypes = {
+  marker: PropTypes.node.isRequired,
+};
+
+export default withStyles(styles)(InfoBox);

@@ -10,8 +10,8 @@ import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerC
 const Map = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
-      defaultZoom={8}
-      defaultCenter={{ lat: -34.397, lng: 150.644 }}
+      defaultZoom={14}
+      defaultCenter={{ lat: 49.839683, lng: 24.029717 }}
       onClick={props.getNewMarkersPosition}
     >
       <MarkerClusterer averageCenter enableRetinaIcons gridSize={60}>

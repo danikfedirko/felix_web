@@ -16,13 +16,16 @@ class AddMarkerPopup extends React.Component {
       .replace('-', '/')
       .split('T')[0]
       .replace('-', '.'),
-    markerId: '1232',
+    markerId: '',
     icon: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
     description: '',
+    fileList: [],
+    photos: [],
   };
   componentWillReceiveProps(nextProps) {
     this.setState({
       showModal: nextProps.showModal,
+      markerId: nextProps.markers.length + 1,
     });
   }
   onChangeUserName = e => {
@@ -34,9 +37,13 @@ class AddMarkerPopup extends React.Component {
   onChangeDescription = e => {
     this.setState({ description: e.target.value });
   };
-  emitEmpty = () => {
-    this.userNameInput.focus();
-    this.setState({ userName: '' });
+  onFileChange = ({ fileList }) => {
+    const photos = [];
+    fileList.map(photo => {
+      photos.push(photo.thumbUrl);
+      return '';
+    });
+    this.setState({ fileList, photos });
   };
   toggleModal = () => {
     this.setState({
@@ -47,21 +54,30 @@ class AddMarkerPopup extends React.Component {
     this.toggleModal();
     this.props.initNewMarkersPositionDetection();
   };
+  emitEmpty = () => {
+    this.userNameInput.focus();
+    this.setState({ userName: '' });
+  };
   handleOk = () => {
-    this.props.addMarker(
-      this.state.markerId,
-      this.state.markerName,
-      this.state.userName,
-      this.state.date,
-      this.state.description,
-      this.state.icon,
-    );
-    this.initUserChooseLocation();
-    this.setState({
-      userName: '',
-      markerName: '',
-      description: '',
-    });
+    if (this.state.photos.length < 1) {
+      // alert('Add at least 1 photo');
+    } else {
+      this.props.addMarker(
+        this.state.markerId,
+        this.state.markerName,
+        this.state.userName,
+        this.state.date,
+        this.state.description,
+        this.state.icon,
+        this.state.photos,
+      );
+      this.initUserChooseLocation();
+      this.setState({
+        userName: '',
+        markerName: '',
+        description: '',
+      });
+    }
   };
   render() {
     const { userName, markerName, description } = this.state;
@@ -72,7 +88,7 @@ class AddMarkerPopup extends React.Component {
       <Icon type="close-circle" onClick={this.emitEmpty} />
     ) : null;
     const props = {
-      action: '//jsonplaceholder.typicode.com/posts/',
+      action: 'https://felix-167d8.firebaseio.com/markers',
       listType: 'picture',
       className: 'upload-list',
     };
@@ -121,7 +137,11 @@ class AddMarkerPopup extends React.Component {
             >
               <Icon type="pushpin" /> choose location
             </Button>
-            <Upload {...props}>
+            <Upload
+              {...props}
+              fileList={this.state.fileList}
+              onChange={this.onFileChange}
+            >
               <Button>
                 <Icon type="upload" /> upload your photos
               </Button>
@@ -137,6 +157,7 @@ AddMarkerPopup.propTypes = {
   initNewMarkersPositionDetection: PropTypes.func.isRequired,
   addMarker: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
+  markers: PropTypes.node.isRequired,
 };
 
 export default withStyles(styles)(AddMarkerPopup);

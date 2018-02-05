@@ -8,7 +8,7 @@ import styles from './MainMenu.sass';
 class MainMenu extends React.Component {
   render() {
     return (
-      <div id="nav">
+      <div id="nav" style={{ borderBottomColor: '#ccc' }}>
         <div
           className={styles.logo}
           style={{ float: 'left', marginRight: '2em' }}
