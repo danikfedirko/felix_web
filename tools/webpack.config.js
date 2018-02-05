@@ -163,13 +163,13 @@ const config = {
               },
             },
           },
-           {
-             test: /\.less$/,
-             loader: 'less-loader',
-           },
-           {
-             test: /\.(scss|sass)$/,
-             loader: 'sass-loader',
+          {
+            test: /\.less$/,
+            loader: 'less-loader',
+          },
+          {
+            test: /\.(scss|sass)$/,
+            loader: 'sass-loader',
           },
         ],
       },
