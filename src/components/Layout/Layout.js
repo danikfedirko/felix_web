@@ -13,7 +13,7 @@ class MainLayout extends React.Component {
   render() {
     return (
       <Layout>
-        <Header style={{ background: '#fff' }} className="header">
+        <Header className={styles.header}>
           <MainMenu />
         </Header>
         <Content>{this.props.children}</Content>

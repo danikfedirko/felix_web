@@ -1,8 +1,5 @@
-import {
-  FETCH_MARKERS,
-  RECEIVE_MARKERS,
-  FETCH_MARKERS_ERROR,
-} from '../actions/markers';
+import { FETCH_MARKERS } from 'actions/fetchMarkers';
+import { RECEIVE_MARKERS } from 'actions/receiveMarkers';
 
 const defaultState = {
   fetching: false,
@@ -21,11 +18,6 @@ export default function markers(state = defaultState, action) {
         ...state,
         fetching: false,
         markers: action.payload.markers,
-      };
-    case FETCH_MARKERS_ERROR:
-      return {
-        ...state,
-        fetching: false,
       };
     default:
       return state;

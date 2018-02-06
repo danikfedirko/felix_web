@@ -1,3 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 
 export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
+
+export const sendPhotosUrl = 'https://felix-167d8.firebaseio.com/markers';

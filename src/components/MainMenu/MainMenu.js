@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import Logo from 'img/logo.png';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Link from 'components/Link/Link';
+import Login from 'components/Login/Login';
 import styles from './MainMenu.sass';
 
 class MainMenu extends React.Component {
@@ -27,6 +28,7 @@ class MainMenu extends React.Component {
           <Menu.Item key="2">
             <Link to="/blog">Blog</Link>
           </Menu.Item>
+          <Login />
         </Menu>
       </div>
     );
