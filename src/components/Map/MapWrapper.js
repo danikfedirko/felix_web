@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import InfoBox from 'components/InfoBox/InfoBox';
-import AddMarkerPopup from 'components/AddMarkerPopup/AddMarkerPopup';
-import { fetchMarkers } from 'actions/fetchMarkers';
-import fire from 'fire';
+import InfoBox from 'components/InfoBox';
+import AddMarker from 'components/AddMarker';
+import { fetchMarkers } from 'actions/markersActions';
+import { setData } from 'services/dbService';
 import Map from './Map';
 
 class MapWrapper extends React.Component {
@@ -12,8 +12,8 @@ class MapWrapper extends React.Component {
     super(props);
     this.state = {
       infoToggle: false,
-      activeMarker: '',
-      newMarkersPosition: '',
+      activeMarker: null,
+      newMarkersPosition: null,
       showModal: false,
       detectNewMarkersPosition: false,
       markersData: [],
@@ -41,12 +41,12 @@ class MapWrapper extends React.Component {
   getInfoBox = () => {
     const { markersData, activeMarker } = this.state;
     let infoBox = '';
-    markersData.map(marker => {
-      if (marker.id === activeMarker) {
-        infoBox = <InfoBox key={marker.id} marker={marker} />;
-      }
-      return '';
-    });
+    const singleMarker = markersData.filter(
+      marker => marker.id === activeMarker,
+    );
+    if (singleMarker) {
+      infoBox = <InfoBox key={singleMarker.id} marker={singleMarker[0]} />;
+    }
     return infoBox;
   };
   initNewMarkersPositionDetection = () => {
@@ -70,10 +70,7 @@ class MapWrapper extends React.Component {
     this.setState({
       markersData: markers,
     });
-    fire
-      .database()
-      .ref('markers')
-      .set(markers);
+    setData('markers', markers);
   };
   infoToggle = id => {
     this.setState({
@@ -95,8 +92,8 @@ class MapWrapper extends React.Component {
           infoToggle={this.infoToggle}
           getNewMarkersPosition={this.getNewMarkersPosition}
         />
-        {infoToggle ? this.getInfoBox() : ''}
-        <AddMarkerPopup
+        {infoToggle ? this.getInfoBox() : null}
+        <AddMarker
           showModal={this.state.showModal}
           addMarker={this.addMarker}
           markers={this.state.markersData}

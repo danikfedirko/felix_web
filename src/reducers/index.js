@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import markers from './markers';
-import fbUserData from './fbUserData';
+import markers from './markersReducer';
+import fbUserData from './loginReducer';
 
 export default combineReducers({
   markers,

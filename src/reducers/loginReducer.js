@@ -1,10 +1,10 @@
-import { FETCH_FB_USER_DATA } from 'actions/fetchFbUserData';
+import { FETCH_FB_USER_DATA } from 'actions/actionTypes';
 
 const defaultState = {
   loggedIn: false,
-  username: '',
-  picture: '',
-  id: '',
+  username: null,
+  picture: null,
+  id: null,
 };
 
 export default function fbUserData(state = defaultState, action) {

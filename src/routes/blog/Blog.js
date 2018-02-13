@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import PageTitle from 'components/PageTitle/PageTitle';
-import PostsList from 'components/PostsList/PostsList';
+import PageTitle from 'components/PageTitle';
+import PostsList from 'components/PostsList';
 import style from './Blog.sass';
 
 class Blog extends React.Component {

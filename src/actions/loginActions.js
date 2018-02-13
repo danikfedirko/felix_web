@@ -1,4 +1,4 @@
-export const FETCH_FB_USER_DATA = 'FETCH_FB_USER_DATA';
+import { FETCH_FB_USER_DATA } from './actionTypes';
 
 export const fetchFbUserData = response => ({
   type: FETCH_FB_USER_DATA,
@@ -9,3 +9,5 @@ export const fetchFbUserData = response => ({
     id: response.id,
   },
 });
+
+export default null;

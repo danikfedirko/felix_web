@@ -1,0 +1,3 @@
+export const FETCH_FB_USER_DATA = 'FETCH_FB_USER_DATA';
+
+export const RECEIVE_MARKERS = 'RECEIVE_MARKERS';

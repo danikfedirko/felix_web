@@ -2,8 +2,8 @@ import React from 'react';
 import { Menu } from 'antd';
 import Logo from 'img/logo.png';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Link from 'components/Link/Link';
-import Login from 'components/Login/Login';
+import Link from 'components/Link';
+import Login from 'components/Login';
 import styles from './MainMenu.sass';
 
 class MainMenu extends React.Component {

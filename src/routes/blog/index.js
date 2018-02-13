@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from 'components/Layout';
+import MainLayout from 'components/Layout';
 import Blog from './Blog';
 
 async function action() {
@@ -7,9 +7,9 @@ async function action() {
     chunks: ['blog'],
     title: 'Felix | Blog',
     component: (
-      <Layout>
+      <MainLayout>
         <Blog />
-      </Layout>
+      </MainLayout>
     ),
   };
 }

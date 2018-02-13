@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import Layout from 'components/Layout';
+import MainLayout from 'components/Layout';
 import Home from './Home';
 
 async function action() {
@@ -16,9 +16,9 @@ async function action() {
     chunks: ['home'],
     title: 'Felix',
     component: (
-      <Layout>
+      <MainLayout>
         <Home />
-      </Layout>
+      </MainLayout>
     ),
   };
 }

@@ -9,7 +9,7 @@ class InfoBox extends React.Component {
     super(props);
     this.state = {
       previewVisible: false,
-      previewImage: '',
+      previewImage: null,
     };
   }
   handlePreview = src => {
@@ -26,22 +26,14 @@ class InfoBox extends React.Component {
   render() {
     return (
       <Card
-        className={styles.infobox}
+        className={styles.infoBox}
         key={this.props.marker.id}
         title={this.props.marker.name}
         bordered
-        style={{
-          width: '40%',
-          height: '100vh',
-          position: 'fixed',
-          right: '0px',
-          top: '64px',
-          zIndex: 10,
-        }}
       >
         <div className={styles.markermeta}>
-          <span>{`@${this.props.marker.author}`}</span>{' '}
-          <span style={{ float: 'right' }}>{this.props.marker.date}</span>
+          <span>{`@${this.props.marker.author}`}</span>
+          <span className={styles.markerDate}>{this.props.marker.date}</span>
         </div>
         <div className="marker-content">
           <p>{this.props.marker.description}</p>
@@ -56,20 +48,12 @@ class InfoBox extends React.Component {
                 onClick={() => this.handlePreview(url)}
                 role="presentation"
               >
-                <img alt="img" src={url} style={{ width: '100%' }} />
+                <img alt="img" src={url} />
               </div>
             </Col>
           ))}
         </Row>
-        <Button
-          onClick={this.initUserChooseLocation}
-          style={{
-            marginRight: '10px',
-            position: 'absolute',
-            bottom: '80px',
-            zIndex: '110',
-          }}
-        >
+        <Button className={styles.addMorePhotosButton}>
           <Icon type="plus" /> add a photo
         </Button>
 
@@ -79,12 +63,8 @@ class InfoBox extends React.Component {
           footer={null}
           onCancel={this.handleCancel}
         >
-          <img
-            alt="example"
-            style={{ width: '100%' }}
-            src={this.state.previewImage}
-          />
-          <span style={{ marginTop: '20px' }}>@danikfedirko</span>
+          <img alt="example" src={this.state.previewImage} />
+          <span>@danikfedirko</span>
         </Modal>
       </Card>
     );

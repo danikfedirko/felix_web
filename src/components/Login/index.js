@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import compose from 'recompose/compose';
 import { Button, Modal, Avatar } from 'antd';
 import FacebookLogin from 'react-facebook-login';
-import { fetchFbUserData } from 'actions/fetchFbUserData';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { fetchFbUserData } from 'actions/loginActions';
+import styles from './Login.sass';
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,21 +26,16 @@ class Login extends React.Component {
   render() {
     const { loggedIn, picture, username } = this.props;
     return (
-      <div style={{ display: 'inline-block', float: 'right' }}>
+      <div className={styles.loginBlock}>
         {loggedIn ? (
           <div>
-            {' '}
-            Welcome, {username}{' '}
-            <Avatar
-              style={{ verticalAlign: 'middle', marginLeft: '1em' }}
-              src={picture.data.url}
-            />{' '}
+            Welcome, {username}
+            <Avatar className={styles.avatar} src={picture.data.url} />
           </div>
         ) : (
           <div>
             <Button type="primary" onClick={this.toggleLogin}>
-              {' '}
-              Login{' '}
+              Login
             </Button>
             <Modal
               visible={this.state.visible}
@@ -73,4 +71,7 @@ Login.propTypes = {
   fetchFbUserData: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { fetchFbUserData })(Login);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, { fetchFbUserData }),
+)(Login);

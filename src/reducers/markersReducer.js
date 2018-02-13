@@ -1,5 +1,4 @@
-import { FETCH_MARKERS } from 'actions/fetchMarkers';
-import { RECEIVE_MARKERS } from 'actions/receiveMarkers';
+import { RECEIVE_MARKERS } from 'actions/actionTypes';
 
 const defaultState = {
   fetching: false,
@@ -8,11 +7,6 @@ const defaultState = {
 
 export default function markers(state = defaultState, action) {
   switch (action.type) {
-    case FETCH_MARKERS:
-      return {
-        ...state,
-        fetching: true,
-      };
     case RECEIVE_MARKERS:
       return {
         ...state,

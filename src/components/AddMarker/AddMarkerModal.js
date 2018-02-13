@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Form, Input, Icon, Upload } from 'antd';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { sendPhotosUrl } from 'constants';
-import styles from './AddMarkerPopup.sass';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import styles from './AddMarker.sass';
 
 const { TextArea } = Input;
 
-class AddMarkerPopup extends React.Component {
+class AddMarkerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showModal: false,
-      userName: '',
-      markerName: '',
+      userName: null,
+      markerName: null,
       date: new Date()
         .toISOString()
         .replace('-', '/')
         .split('T')[0]
         .replace('-', '.'),
-      markerId: '',
-      icon: '',
-      description: '',
+      markerId: null,
+      icon: null,
+      description: null,
       fileList: [],
       photos: [],
     };
@@ -32,12 +32,6 @@ class AddMarkerPopup extends React.Component {
       markerId: nextProps.markers.length + 1,
     });
   }
-  onChangeUserName = e => {
-    this.setState({ userName: e.target.value });
-  };
-  onChangeMarkerName = e => {
-    this.setState({ markerName: e.target.value });
-  };
   onChangeDescription = e => {
     this.setState({ description: e.target.value });
   };
@@ -45,14 +39,9 @@ class AddMarkerPopup extends React.Component {
     const photos = [];
     fileList.map(photo => {
       photos.push(photo.thumbUrl);
-      return '';
+      return null;
     });
     this.setState({ fileList, photos });
-  };
-  toggleModal = () => {
-    this.setState({
-      showModal: !this.state.showModal,
-    });
   };
   initUserChooseLocation = () => {
     this.toggleModal();
@@ -60,7 +49,7 @@ class AddMarkerPopup extends React.Component {
   };
   emitEmpty = () => {
     this.userNameInput.focus();
-    this.setState({ userName: '' });
+    this.setState({ userName: null });
   };
   handleOk = () => {
     const {
@@ -86,11 +75,16 @@ class AddMarkerPopup extends React.Component {
       );
       this.initUserChooseLocation();
       this.setState({
-        userName: '',
-        markerName: '',
-        description: '',
+        userName: null,
+        markerName: null,
+        description: null,
       });
     }
+  };
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal,
+    });
   };
   render() {
     const { description, showModal, fileList } = this.state;
@@ -100,50 +94,41 @@ class AddMarkerPopup extends React.Component {
       className: 'upload-list',
     };
     return (
-      <div>
-        <Button
-          shape="circle"
-          icon="plus"
-          size="large"
-          onClick={this.toggleModal}
-          className={styles.addMarkerButton}
-        />
-        <Modal
-          className={styles.addMarkerModal}
-          visible={showModal}
-          onOk={this.handleOk}
-          onCancel={this.toggleModal}
-        >
-          <Form>
-            <TextArea
-              rows={4}
-              placeholder="Enter description"
-              value={description}
-              onChange={this.onChangeDescription}
-            />
-            <Button
-              onClick={this.initUserChooseLocation}
-              style={{ marginRight: '10px' }}
-            >
-              <Icon type="pushpin" /> choose location
+      <Modal
+        className={styles.addMarkerModal}
+        visible={showModal}
+        onOk={this.handleOk}
+        onCancel={this.toggleModal}
+      >
+        <Form>
+          <TextArea
+            rows={4}
+            placeholder="Enter description"
+            value={description}
+            onChange={this.onChangeDescription}
+          />
+          <Button
+            onClick={this.initUserChooseLocation}
+            className={styles.addLocationButton}
+          >
+            <Icon type="pushpin" /> choose location
+          </Button>
+          <Upload {...props} fileList={fileList} onChange={this.onFileChange}>
+            <Button>
+              <Icon type="upload" /> upload your photos
             </Button>
-            <Upload {...props} fileList={fileList} onChange={this.onFileChange}>
-              <Button>
-                <Icon type="upload" /> upload your photos
-              </Button>
-            </Upload>
-          </Form>
-        </Modal>
-      </div>
+          </Upload>
+        </Form>
+      </Modal>
     );
   }
 }
 
-AddMarkerPopup.propTypes = {
+AddMarkerModal.propTypes = {
   initNewMarkersPositionDetection: PropTypes.func.isRequired,
-  addMarker: PropTypes.func.isRequired,
   showModal: PropTypes.bool.isRequired,
+  addMarker: PropTypes.func.isRequired,
   markers: PropTypes.node.isRequired,
 };
 
-export default withStyles(styles)(AddMarkerPopup);
+export default withStyles(styles)(AddMarkerModal);
