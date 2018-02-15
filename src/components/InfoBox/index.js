@@ -32,7 +32,7 @@ class InfoBox extends React.Component {
         bordered
       >
         <div className={styles.markermeta}>
-          <span>{`@${this.props.marker.author}`}</span>
+          <span>{this.props.marker.author}</span>
           <span className={styles.markerDate}>{this.props.marker.date}</span>
         </div>
         <div className="marker-content">

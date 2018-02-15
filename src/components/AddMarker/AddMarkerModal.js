@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'recompose/compose';
+import { connect } from 'react-redux';
 import { Button, Modal, Form, Input, Icon, Upload } from 'antd';
 import { sendPhotosUrl } from 'consts';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -12,7 +14,7 @@ class AddMarkerModal extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      userName: null,
+      username: null,
       markerName: null,
       date: new Date()
         .toISOString()
@@ -30,6 +32,7 @@ class AddMarkerModal extends React.Component {
     this.setState({
       showModal: nextProps.showModal,
       markerId: nextProps.markers.length + 1,
+      username: nextProps.username,
     });
   }
   onChangeDescription = e => {
@@ -49,13 +52,13 @@ class AddMarkerModal extends React.Component {
   };
   emitEmpty = () => {
     this.userNameInput.focus();
-    this.setState({ userName: null });
+    this.setState({ username: null });
   };
   handleOk = () => {
     const {
       markerId,
       markerName,
-      userName,
+      username,
       date,
       description,
       icon,
@@ -67,7 +70,7 @@ class AddMarkerModal extends React.Component {
       this.props.addMarker(
         markerId,
         markerName,
-        userName,
+        username,
         date,
         description,
         icon,
@@ -75,7 +78,7 @@ class AddMarkerModal extends React.Component {
       );
       this.initUserChooseLocation();
       this.setState({
-        userName: null,
+        username: null,
         markerName: null,
         description: null,
       });
@@ -136,6 +139,15 @@ AddMarkerModal.propTypes = {
   showModal: PropTypes.bool.isRequired,
   addMarker: PropTypes.func.isRequired,
   markers: PropTypes.node.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(AddMarkerModal);
+function mapStateToProps(state) {
+  return {
+    username: state.fbUserData.username,
+  };
+}
+
+export default compose(withStyles(styles), connect(mapStateToProps))(
+  AddMarkerModal,
+);
