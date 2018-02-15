@@ -6,6 +6,7 @@ import { Button, Modal, Avatar } from 'antd';
 import FacebookLogin from 'react-facebook-login';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { fetchFbUserData } from 'actions/loginActions';
+import { fbAppId } from 'consts';
 import styles from './Login.sass';
 
 class Login extends React.Component {
@@ -24,13 +25,13 @@ class Login extends React.Component {
     this.props.fetchFbUserData(response);
   };
   render() {
-    const { loggedIn, picture, username } = this.props;
+    const { isLoggedIn, picture, username } = this.props;
     return (
       <div className={styles.loginBlock}>
-        {loggedIn ? (
+        {isLoggedIn ? (
           <div>
             Welcome, {username}
-            <Avatar className={styles.avatar} src={picture.data.url} />
+            <Avatar className={styles.avatar} src={picture} />
           </div>
         ) : (
           <div>
@@ -43,7 +44,7 @@ class Login extends React.Component {
               onCancel={this.toggleLogin}
             >
               <FacebookLogin
-                appId="412110992560233"
+                appId={fbAppId}
                 autoLoad
                 fields="name,email,picture"
                 callback={this.responseFacebook}
@@ -60,14 +61,14 @@ function mapStateToProps(state) {
   return {
     username: state.fbUserData.username,
     picture: state.fbUserData.picture,
-    loggedIn: state.fbUserData.loggedIn,
+    isLoggedIn: state.fbUserData.isLoggedIn,
   };
 }
 
 Login.propTypes = {
   username: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   fetchFbUserData: PropTypes.func.isRequired,
 };
 

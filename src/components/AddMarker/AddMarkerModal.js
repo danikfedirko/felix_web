@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Form, Input, Icon, Upload } from 'antd';
-import { sendPhotosUrl } from 'constants';
+import { sendPhotosUrl } from 'consts';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import styles from './AddMarker.sass';
 
@@ -81,11 +81,18 @@ class AddMarkerModal extends React.Component {
       });
     }
   };
+  handleCancel = () => {
+    this.setState({
+      showModal: false,
+    });
+    this.initUserChooseLocation();
+  };
   toggleModal = () => {
     this.setState({
       showModal: !this.state.showModal,
     });
   };
+
   render() {
     const { description, showModal, fileList } = this.state;
     const props = {
@@ -98,7 +105,7 @@ class AddMarkerModal extends React.Component {
         className={styles.addMarkerModal}
         visible={showModal}
         onOk={this.handleOk}
-        onCancel={this.toggleModal}
+        onCancel={this.handleCancel}
       >
         <Form>
           <TextArea

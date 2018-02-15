@@ -5,6 +5,7 @@ import InfoBox from 'components/InfoBox';
 import AddMarker from 'components/AddMarker';
 import { fetchMarkers } from 'actions/markersActions';
 import { setData } from 'services/dbService';
+import { googleMapUrl } from 'consts';
 import Map from './Map';
 
 class MapWrapper extends React.Component {
@@ -16,6 +17,7 @@ class MapWrapper extends React.Component {
       newMarkersPosition: null,
       showModal: false,
       detectNewMarkersPosition: false,
+      isLoggedIn: false,
       markersData: [],
     };
   }
@@ -25,6 +27,7 @@ class MapWrapper extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       markersData: nextProps.markers,
+      isLoggedIn: nextProps.isLoggedIn,
     });
   }
   getNewMarkersPosition = event => {
@@ -48,6 +51,17 @@ class MapWrapper extends React.Component {
       infoBox = <InfoBox key={singleMarker.id} marker={singleMarker[0]} />;
     }
     return infoBox;
+  };
+  getAddMarkerButton = () => {
+    const { showModal, markersData } = this.state;
+    return (
+      <AddMarker
+        showModal={showModal}
+        addMarker={this.addMarker}
+        markers={markersData}
+        initNewMarkersPositionDetection={this.initNewMarkersPositionDetection}
+      />
+    );
   };
   initNewMarkersPositionDetection = () => {
     this.setState({
@@ -79,12 +93,12 @@ class MapWrapper extends React.Component {
     });
   };
   render() {
-    const { infoToggle } = this.state;
+    const { infoToggle, isLoggedIn } = this.state;
     return (
       <div>
         <Map
           isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL={googleMapUrl}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: 'calc(100vh - 60px)' }} />}
           mapElement={<div style={{ height: `100%` }} />}
@@ -93,24 +107,24 @@ class MapWrapper extends React.Component {
           getNewMarkersPosition={this.getNewMarkersPosition}
         />
         {infoToggle ? this.getInfoBox() : null}
-        <AddMarker
-          showModal={this.state.showModal}
-          addMarker={this.addMarker}
-          markers={this.state.markersData}
-          initNewMarkersPositionDetection={this.initNewMarkersPositionDetection}
-        />
+        {isLoggedIn ? this.getAddMarkerButton() : null}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { fetching: state.markers.fetching, markers: state.markers.markers };
+  return {
+    fetching: state.markers.fetching,
+    markers: state.markers.markers,
+    isLoggedIn: state.fbUserData.isLoggedIn,
+  };
 }
 
 MapWrapper.propTypes = {
   fetchMarkers: PropTypes.func.isRequired,
   markers: PropTypes.node.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, { fetchMarkers })(MapWrapper);
