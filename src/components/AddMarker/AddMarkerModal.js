@@ -144,7 +144,7 @@ AddMarkerModal.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    username: state.fbUserData.username,
+    username: state.userData.username,
   };
 }
 

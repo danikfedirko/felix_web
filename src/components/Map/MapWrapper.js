@@ -117,7 +117,7 @@ function mapStateToProps(state) {
   return {
     fetching: state.markers.fetching,
     markers: state.markers.markers,
-    isLoggedIn: state.fbUserData.isLoggedIn,
+    isLoggedIn: state.userData.isLoggedIn,
   };
 }
 

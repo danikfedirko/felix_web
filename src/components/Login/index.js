@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
+import FbLogin from 'components/Login/FacebookLogin';
+import InstaLogin from 'components/Login/InstagramLogin';
 import { Button, Modal, Avatar } from 'antd';
-import FacebookLogin from 'react-facebook-login';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { fetchFbUserData } from 'actions/loginActions';
-import { fbAppId } from 'consts';
+import { loginAction } from 'actions/loginActions';
 import styles from './Login.sass';
 
 class Login extends React.Component {
@@ -20,9 +20,6 @@ class Login extends React.Component {
     this.setState({
       visible: !this.state.visible,
     });
-  };
-  responseFacebook = response => {
-    this.props.fetchFbUserData(response);
   };
   render() {
     const { isLoggedIn, picture, username } = this.props;
@@ -43,12 +40,9 @@ class Login extends React.Component {
               footer={null}
               onCancel={this.toggleLogin}
             >
-              <FacebookLogin
-                appId={fbAppId}
-                autoLoad
-                fields="name,email,picture"
-                callback={this.responseFacebook}
-              />
+              <FbLogin loginAction={this.props.loginAction} />
+              <br />
+              <InstaLogin />
             </Modal>
           </div>
         )}
@@ -59,9 +53,9 @@ class Login extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    username: state.fbUserData.username,
-    picture: state.fbUserData.picture,
-    isLoggedIn: state.fbUserData.isLoggedIn,
+    username: state.userData.username,
+    picture: state.userData.picture,
+    isLoggedIn: state.userData.isLoggedIn,
   };
 }
 
@@ -69,10 +63,10 @@ Login.propTypes = {
   username: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  fetchFbUserData: PropTypes.func.isRequired,
+  loginAction: PropTypes.func.isRequired,
 };
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { fetchFbUserData }),
+  connect(mapStateToProps, { loginAction }),
 )(Login);
